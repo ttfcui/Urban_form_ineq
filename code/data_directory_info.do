@@ -10,7 +10,7 @@
 * Main directory for public data we've set up, which can vary by user.
 * Once this is set, the subdirectories should follow a certain structure.
 
-global project_dir ~/Downloads/Urban_form_ineq        // For TC
+global project_dir ../../../urban_form_data        // For TC
 *global project_dir          // For PG
 *global project_dir          // For other RAs?
 

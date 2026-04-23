@@ -386,10 +386,6 @@ foreach fname of local files {
     }
 }
 
-
-/* Output; record into project */
-foreach xw_type in 1to1 consistent {
-    foreach yrtype in 00to10 90to10 20to10 {
-        project, creates(`outdir'/PUMA_`xw_type'_`yrtype'.dta)
-    }
+for xw_type in 1to1 consistent {
+    for yrtype in 00to10 
 }
