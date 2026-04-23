@@ -1,6 +1,6 @@
 
 # Backup files for code
 **/*.do~
-**/*.stswp~
+**/*.stswp
 # Log files that come out
 **/*.smcl
