@@ -60,12 +60,21 @@ end
 
 capture program drop ineq_index_within_loop
 program define ineq_index_within_loop
-    syntax varname [fweight/], byvar(string)
+    syntax varname [fweight/], byvar(string) [NOISILY]
     
-    levelsof `byvar'
-    local levels_stored "`r(levels)'"
+    if "`noisily'" != "" {
+        levelsof `byvar'
+        local levels_stored "`r(levels)'"
     
-    quietly ineqdeco `varlist' [fw=`exp'], by(`byvar')
+        ineqdeco `varlist' [fw=`exp'], by(`byvar')
+    }
+    else {
+        quietly levelsof `byvar'
+        local levels_stored "`r(levels)'"
+    
+        quietly ineqdeco `varlist' [fw=`exp'], by(`byvar')        
+    }
+
     foreach p of local levels_stored {
         matrix A1 = nullmat(A1) \ ( ///
             `r(gini_`p')', `r(ge1_`p')' ///
@@ -79,15 +88,21 @@ end
 
 capture program drop subunit_gini_decomp
 program define subunit_gini_decomp
-    syntax varname [fweight/]
+    syntax varname [fweight/], [NOISILY]
     
-    ineqdeco `varlist' [fw=`exp']
+    if "`noisily'" != "" {
+        ineqdeco `varlist' [fw=`exp']
+    }
+    else {
+        quietly ineqdeco `varlist' [fw=`exp']
+    }
     sort persinc_net
     sum persinc_net if !missing(`varlist'), meanonly
     local orig_n = `r(N)'
     sum persinc_net if !missing(`varlist') [fw=`exp'], meanonly
     gen gini_contr = 2/(`r(N)'*`orig_n'*`r(mean)')*perwt*_n*(persinc_net -`r(mean)')
-    tabstat gini_contr, stat(sum)
+    if "`noisily'" != "" tabstat gini_contr, stat(sum)
+    else quietly tabstat gini_contr, stat(sum)
     
 end
 
@@ -210,6 +225,14 @@ program define prep_microdata_geography
         display "Skipping sub-metro area run:"
         replace full_puma = met2013
     }
+    * Even more trivial definition: nothing is run separately by metro, and
+    * the national indices are backed out. This is to see how much national
+    * index is decomposable by metro (over the metros being sampled)
+    else if `subarea' == 99 {
+        display "National index calculations only:"
+        replace met2013 = 1e7
+        replace full_puma = met2013        
+    }
     
     display "Overview of # submetro geographies:"
     unique full_puma
@@ -230,9 +253,9 @@ program define ineq_stat_production
     keep if `varlist' > 0 & !missing(`varlist') & `if'
     tempfile metro_tab
 
-    * TO COMPLETE
-    * This is an incomplete function, in case we actually want to
-    * compute the "Between" term for the Gini index.
+    * TO COMPLETE: this is an incomplete function, in case we actually
+    * want to compute the "Between" term for the Gini index. Alternatively,
+    * can comment this out altogether to speed up script if Gini unnecessary.
     subunit_gini_decomp `varlist' [fw=`exp']
 
     foreach matname in A1 A2 IncV IncV2 {
@@ -245,6 +268,7 @@ program define ineq_stat_production
     save `metro_tab'
 
     restore
+    display "Metro has following PUMA IDs:"
     levelsof `byvar'
     local levels_stored "`r(levels)'"
     qui tabstat `varlist' [fw=`exp'], by(`byvar') stat(sd var) save
@@ -280,8 +304,9 @@ program define ineq_metro_iteration
     
     tempfile all_metros
     preserve
-    levelsof `mainvar'
+    qui levelsof `mainvar'
     foreach met_area in `r(levels)' {
+        display "Processing metro coded: `met_area'"
         ineq_stat_production `varlist' if `mainvar' == `met_area' ///
             [fweight = `exp'], mainvar(`mainvar') byvar(full_puma)
         capture append using `all_metros'
@@ -329,7 +354,7 @@ end
 
 capture program drop append_full_data
 program define append_full_data
-    syntax anything(name=prefix), sourcedir(string) file90(string)
+    syntax anything(name=prefix), sourcedir(string) file90(string) outdir(string)
 
     /* Final touches to append data into full panel dataset */
     local files : dir "`sourcedir'" files "`prefix'*.dta"
@@ -354,7 +379,7 @@ program define append_full_data
     sum persons-inc_var if year == 1990
     drop _merge
 
-    save `sourcedir'/`prefix'longitudinal_master.dta, replace
+    save `outdir'/`prefix'longitudinal_master.dta, replace
     
 end
 
@@ -407,7 +432,7 @@ levelsof v1, separate(,) local(main_mets)
 * If run as part of the overall project command, make sure all
 * the geographies are run in a loop together
 
-foreach geo_lvls in 2 1 3 {
+foreach geo_lvls in 99 1 /*2 3*/ {
 foreach subsample_st in 2 1 {
 clear
 * A Stata quirk, since the variables have to be in memory to be called
@@ -461,9 +486,11 @@ clear
 set obs 2
 gen met2013 = .
 
+local area90 9
+if `geo_lvls' == 99 local area90 99
 * CHECK: what is the filename here? Is "IPUMS" capitalized or not??
 prep_microdata_geography ipums_5pct1pct_1990.dta if inlist(met2013, `main_mets'), ///
-    subarea(9) sourcedir($ipums_dir) xwalkdir($geo_xwalk_dir)
+    subarea(`area90') sourcedir($ipums_dir) xwalkdir($geo_xwalk_dir)
 keep if sample == 199002
 
 calc_subsample, subsample_def(`subsample_st')
@@ -487,8 +514,9 @@ log c
 
 /* Appending together a separate person-level dataset and household-level dataset */
 append_full_data pers`file_flag'_, sourcedir($ipums_dir) ///
-    file90(met90_persinc_1990_temp.dta)
-append_full_data hh`file_flag'_, sourcedir($ipums_dir) file90(met90_hhinc_1990_temp.dta)
+    file90(met90_persinc_1990_temp.dta) outdir($ineq_panel_dir)
+append_full_data hh`file_flag'_, sourcedir($ipums_dir) ///
+    file90(met90_hhinc_1990_temp.dta) outdir($ineq_panel_dir)
 
 * Erase all the partial datasets, now that they're assembled
 local files : dir "$ipums_dir" files "*inc*_temp.dta"
@@ -505,13 +533,16 @@ foreach fname of local files  {
 
 local fsuffix longitudinal_master
 foreach data_type in persinc hhinc{
-    project, creates($ipums_dir/`data_type'_`fsuffix'.dta)
-    project, creates($ipums_dir/`data_type'G2_`fsuffix'.dta)
-    project, creates($ipums_dir/`data_type'G3_`fsuffix'.dta)
+    project, creates($ineq_panel_dir/`data_type'_`fsuffix'.dta)
+    project, creates($ineq_panel_dir/`data_type'G2_`fsuffix'.dta)
+    project, creates($ineq_panel_dir/`data_type'G3_`fsuffix'.dta)
+    project, creates($ineq_panel_dir/`data_type'G99_`fsuffix'.dta)
 
     foreach type in 2 {   // Any additional subsamples produced
-        project, creates($ipums_dir/`data_type'_subgrp`type'_`fsuffix'.dta)
-        project, creates($ipums_dir/`data_type'G2_subgrp`type'_`fsuffix'.dta)
-        project, creates($ipums_dir/`data_type'G3_subgrp`type'_`fsuffix'.dta)
+        project, creates($ineq_panel_dir/`data_type'_subgrp`type'_`fsuffix'.dta)
+        project, creates($ineq_panel_dir/`data_type'G2_subgrp`type'_`fsuffix'.dta)
+        project, creates($ineq_panel_dir/`data_type'G3_subgrp`type'_`fsuffix'.dta)
+        project, creates($ineq_panel_dir/`data_type'G99_subgrp`type'_`fsuffix'.dta)
+
     }
 }

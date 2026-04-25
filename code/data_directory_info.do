@@ -24,5 +24,15 @@ global ipums_dir $project_dir/Pooya_data
 * for constructing RHS variables
 global geo_rhs_dir $project_dir/rhs_within_puma
 
+* Separate directory for market stats, or PUMA-level average elasticities
+global mkt_rhs_dir $project_dir/Market_stats
+
+* Folder to store the long and wide versions of ineq index panel
+global ineq_panel_dir $project_dir/Master_data
+
 * Future directory for shares and stats taken out of Verisk unit-level data 
 global geo_verisk_dir $project_dir/..  // TODO
+
+
+* Temporary directory for intermediate merged data?
+global analysis_temp_dir $project_dir/../temp

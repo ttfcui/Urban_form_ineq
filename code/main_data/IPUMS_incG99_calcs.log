@@ -1,0 +1,247 @@
+-----------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /home/mnt/weka/gyourko/team/ttfcui/Dropbox/Urban_form_ineq/code/main_data/IPUMS_incG99_calcs.log
+  log type:  text
+ opened on:  24 Apr 2026, 20:51:34
+
+
+Now processing file:  IPUMS_ACS_2019.dta
+Census geography to match: From year 2010
+
+Duplicates in terms of state puma12
+
+(1,436 observations deleted)
+file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.000008 saved as .dta format
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                         2,007,655  (_merge==3)
+    -----------------------------------------
+National index calculations only:
+(2,007,655 real changes made)
+(2,007,655 real changes made)
+Overview of # submetro geographies:
+Number of unique values of full_puma is  1
+Number of records is  2007655
+Counting only geographies altered from orig. PUMA:
+Number of unique values of full_puma is  1
+Number of records is  2007655
+  0
+Overview of geographies following subsample:
+Number of unique values of full_puma is  1
+Number of records is  2007655
+
+  metropolitan area (2013 delineations, |
+               identifiable areas only) |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                               1.00e+07 |  2,007,655      100.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |  2,007,655      100.00
+(74,650 observations deleted)
+(1,328 observations deleted)
+(4,859 observations deleted)
+(326,638 real changes made, 326,638 to missing)
+(326,638 real changes made, 326,638 to missing)
+(326,638 real changes made, 326,638 to missing)
+(326,638 real changes made, 326,638 to missing)
+(326,638 missing values generated)
+(698,803 missing values generated)
+(81,969 real changes made, 81,969 to missing)
+file ../../../urban_form_data/Crosswalks/labels_temp.do saved
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      inctot |167,445,686     49921.7    70841.89      -9800    1629000
+       incss |167,445,686    2909.235    6906.436          0      38700
+    incretir |167,445,686    3370.819    14181.59          0     208000
+  retire_inc |167,445,686    6545.854    17721.02          0     245300
+ persinc_net |167,445,686    43375.84    70303.36      -9800    1608000
+Processing metro coded: 10000000
+(698,803 observations deleted)
+
+    Variable |        SD  Variance
+-------------+--------------------
+ persinc_net |   75099.7  5.64e+09
+----------------------------------
+file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.00000a saved as .dta format
+Metro has following PUMA IDs:
+10000000
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+
+    Matched                                 1
+        not updated                         1  (_merge==3)
+        missing updated                     0  (_merge==4)
+        nonmissing conflict                 0  (_merge==5)
+    -----------------------------------------
+(file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.000008 not found)
+file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.000008 saved as .dta format
+(file ../../../urban_form_data/Pooya_data/persincG99_2019_temp.dta not found)
+file ../../../urban_form_data/Pooya_data/persincG99_2019_temp.dta saved
+
+Duplicates in terms of serial
+
+(1,065,117 observations deleted)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+    hhincome | 84,557,897    607754.4     2184793     -14400    9999999
+   retire_hh | 84,557,897     12739.9    27259.94          0     533300
+   hhinc_net | 80,227,027    87492.63    109604.4     -18000    2895600
+Processing metro coded: 10000000
+(176,660 observations deleted)
+(78,699 missing values generated)
+
+    Variable |        SD  Variance
+-------------+--------------------
+   hhinc_net |  111634.7  1.25e+10
+----------------------------------
+file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.00000a saved as .dta format
+Metro has following PUMA IDs:
+10000000
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+
+    Matched                                 1
+        not updated                         1  (_merge==3)
+        missing updated                     0  (_merge==4)
+        nonmissing conflict                 0  (_merge==5)
+    -----------------------------------------
+(file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.000008 not found)
+file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.000008 saved as .dta format
+(file ../../../urban_form_data/Pooya_data/hhincG99_2019_temp.dta not found)
+file ../../../urban_form_data/Pooya_data/hhincG99_2019_temp.dta saved
+
+
+File processing complete:  IPUMS_ACS_2019.dta
+
+
+
+Number of observations (_N) was 0, now 2.
+(2 missing values generated)
+Number of observations (_N) was 0, now 2.
+(2 missing values generated)
+Census geography to match: From year 1990
+
+Duplicates in terms of state puma90
+
+(1,937 observations deleted)
+file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.000008 saved as .dta format
+(variable puma was long, now double to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       493,164
+        from master                   493,164  (_merge==1)
+        from using                          0  (_merge==2)
+
+    Matched                         7,371,068  (_merge==3)
+    -----------------------------------------
+National index calculations only:
+(7,864,232 real changes made)
+(7,864,232 real changes made)
+Overview of # submetro geographies:
+Number of unique values of full_puma is  1
+Number of records is  7864232
+Counting only geographies altered from orig. PUMA:
+Number of unique values of full_puma is  1
+Number of records is  7864232
+(6,496,072 observations deleted)
+Overview of geographies following subsample:
+Number of unique values of full_puma is  1
+Number of records is  1368160
+
+  1 met2013 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+   1.00e+07 |  1,368,160      100.00      100.00
+------------+-----------------------------------
+      Total |  1,368,160      100.00
+(30,483 observations deleted)
+(387 observations deleted)
+(1,360 observations deleted)
+(313,579 real changes made, 313,579 to missing)
+(295,740 real changes made, 295,740 to missing)
+(295,740 real changes made, 295,740 to missing)
+(11,790 real changes made)
+(313,579 missing values generated)
+(486,476 missing values generated)
+(26,593 real changes made, 26,593 to missing)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      inctot |110,929,977    20501.03     24895.8     -19998     429126
+       incss |110,929,977    974.1067    2595.473          0      23418
+    incretir |110,929,977    729.5095    3459.345          0      38892
+  retire_inc |110,929,977    1747.732    4853.366          0      61764
+ persinc_net |110,929,977     18753.3    25003.41     -19998     401081
+Processing metro coded: 10000000
+(486,476 observations deleted)
+
+    Variable |        SD  Variance
+-------------+--------------------
+ persinc_net |  25796.68  6.65e+08
+----------------------------------
+file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.00000a saved as .dta format
+Metro has following PUMA IDs:
+10000000
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+
+    Matched                                 1
+        not updated                         1  (_merge==3)
+        missing updated                     0  (_merge==4)
+        nonmissing conflict                 0  (_merge==5)
+    -----------------------------------------
+(file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.000008 not found)
+file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.000008 saved as .dta format
+(file ../../../urban_form_data/Pooya_data/met90_persinc_1990_temp.dta not found)
+file ../../../urban_form_data/Pooya_data/met90_persinc_1990_temp.dta saved
+
+Duplicates in terms of serial
+
+(810,290 observations deleted)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+    hhincome | 54,485,809    40806.68    36599.17     -19998     925956
+   retire_hh | 54,485,809    3517.144    7405.222          0     108062
+   hhinc_net | 54,485,809    37289.54    37393.68     -19998     925956
+Processing metro coded: 10000000
+(63,279 observations deleted)
+(74,350 missing values generated)
+
+    Variable |        SD  Variance
+-------------+--------------------
+   hhinc_net |  37272.25  1.39e+09
+----------------------------------
+file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.00000a saved as .dta format
+Metro has following PUMA IDs:
+10000000
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+
+    Matched                                 1
+        not updated                         1  (_merge==3)
+        missing updated                     0  (_merge==4)
+        nonmissing conflict                 0  (_merge==5)
+    -----------------------------------------
+(file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.000008 not found)
+file /home/mnt/weka/scratch/uge/1327723.1.hpc3.q/St1969812.000008 saved as .dta format
+(file ../../../urban_form_data/Pooya_data/met90_hhinc_1990_temp.dta not found)
+file ../../../urban_form_data/Pooya_data/met90_hhinc_1990_temp.dta saved
+file ../../../urban_form_data/Pooya_data/met90_persinc_1990_temp.dta saved
+file ../../../urban_form_data/Pooya_data/met90_hhinc_1990_temp.dta saved
+      name:  <unnamed>
+       log:  /home/mnt/weka/gyourko/team/ttfcui/Dropbox/Urban_form_ineq/code/main_data/IPUMS_incG99_calcs.log
+  log type:  text
+ closed on:  24 Apr 2026, 20:54:01
+-----------------------------------------------------------------------------------------------------------------------------------------------
