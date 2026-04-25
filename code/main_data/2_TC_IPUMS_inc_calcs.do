@@ -432,7 +432,7 @@ levelsof v1, separate(,) local(main_mets)
 * If run as part of the overall project command, make sure all
 * the geographies are run in a loop together
 
-foreach geo_lvls in 99 1 /*2 3*/ {
+foreach geo_lvls in 99 2 1 3 {
 foreach subsample_st in 2 1 {
 clear
 * A Stata quirk, since the variables have to be in memory to be called
